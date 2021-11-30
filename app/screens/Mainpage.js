@@ -1,5 +1,5 @@
 import React, {Component,useEffect} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, StatusBar, SafeAreaView, TouchableOpacity, FlatList } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, StatusBar, SafeAreaView, TouchableOpacity, FlatList, Alert } from 'react-native';
 import {styles} from '../config/styles';
 
 export default class App extends Component {
@@ -9,40 +9,43 @@ export default class App extends Component {
     dateInit = initDate.getDate() + '/' + initDate.getMonth() + '/' + initDate.getFullYear();
    
     this.state = {
-      balance: 100,
+      balance: 3980,
       amount: [100, 20, 900],
       details: ["Lazada", "Shopee", "Nike"],
       initDate: ["20/9/2021", "25/10/2021", "29/11/2021" ],
       valueInput: '',
       textInput: '',
-      currentDate: dateInit
+      currentDate: dateInit,
+      totalSpend: 1020,
       
     }
-    
      
   }
 
   addDetails = () => {
-    this.setState(prevState =>{
-        return{
-            valueInput: '',
-            amount: [...prevState.amount,prevState.valueInput]
-        }
-    })
-    this.setState(prevState =>{
-        return{
-            textInput: '',
-            details: [...prevState.details,prevState.textInput]
-        }
-    })
-    this.setState(prevState =>{
-        return{
-            initDate: [...prevState.initDate, this.state.currentDate]
-        }
-    })  
-  }
-  
+        this.setState(prevState =>{
+            return{
+                valueInput: '',
+                amount: [...prevState.amount,prevState.valueInput]
+            }
+        })
+        this.setState(prevState =>{
+            return{
+                textInput: '',
+                details: [...prevState.details,prevState.textInput]
+            }
+        })
+        this.setState(prevState =>{
+            return{
+                initDate: [...prevState.initDate, this.state.currentDate]
+            }
+        })
+        Alert.alert("You have paid RM" + this.state.valueInput + " for " + this.state.textInput);
+        this.state.balance-=this.state.valueInput;
+        this.state.totalSpend+=this.state.valueInput;
+}
 
+   
 
   render() {
     
@@ -55,7 +58,7 @@ export default class App extends Component {
         
           <Text style={styles.topAmount}>RM {this.state.balance}</Text>
           <View style={styles.buttonView}>
-          <TouchableOpacity style={styles.topButton}>
+          <TouchableOpacity onPress={this.countTotal} style={styles.topButton}>
               <Text>Top Up</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.addDetails} style={styles.topButton}>
@@ -80,6 +83,7 @@ export default class App extends Component {
                         style={styles.textInputStyle}
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
+                        
                     />
            
                 </View>
@@ -108,9 +112,10 @@ export default class App extends Component {
                 </View>
                 
             </View>
-            
+            <Text>{JSON.stringify(this.state.amount[1])}</Text>
+            <Text>{this.state.totalSpend}</Text>
         </View>
-          
+        
       </View>
   </View>
 
