@@ -41,8 +41,11 @@ export default class App extends Component {
             }
         })
         Alert.alert("You have paid RM" + this.state.valueInput + " for " + this.state.textInput);
-        this.state.balance-=this.state.valueInput;
-        this.state.totalSpend+=this.state.valueInput;
+        this.state.balance -= this.state.valueInput;
+        let numB = Number(this.state.totalSpend);
+        let numV = Number(this.state.valueInput);
+        this.state.totalSpend = numB+numV;
+        
 }
 
    
@@ -112,7 +115,6 @@ export default class App extends Component {
                 </View>
                 
             </View>
-            <Text>{JSON.stringify(this.state.amount[1])}</Text>
             <Text>{this.state.totalSpend}</Text>
         </View>
         
