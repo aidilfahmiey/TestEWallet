@@ -6,7 +6,7 @@ export default class App extends Component {
   constructor(){
     super();
     var initDate = new Date(),
-    dateInit = initDate.getDate() + '/' + initDate.getMonth() + '/' + initDate.getFullYear();
+    dateInit = initDate.getDate() + '/' + (initDate.getMonth()+1) + '/' + initDate.getFullYear();
    
     this.state = {
       balance: 3980,
@@ -62,10 +62,10 @@ export default class App extends Component {
           <Text style={styles.topAmount}>RM {this.state.balance}</Text>
           <View style={styles.buttonView}>
           <TouchableOpacity onPress={this.countTotal} style={styles.topButton}>
-              <Text>Top Up</Text>
+              <Text style={{textAlign:"center"}}>Monthly Statement</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.addDetails} style={styles.topButton}>
-              <Text>Pay</Text>
+              <Text style={{textAlign:"center"}}>Pay</Text>
           </TouchableOpacity>
           </View>
 
